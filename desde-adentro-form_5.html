@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desde Adentro — LIFE by TheVelopers</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #0A0A0A;
+    --cream:   #F5F0E8;
+    --red:     #E8432D;
+    --sand:    #C8B99A;
+    --dark:    #1A1A1A;
+    --mid:     #3A3A3A;
+    --border:  #D8D0C2;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body:    'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 40px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+    border-bottom: 1px solid #222;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 12vw, 130px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .hero-title span {
+    color: var(--red);
+    display: block;
+  }
+
+  .hero-meta {
+    text-align: right;
+  }
+
+  .hero-meta p {
+    font-size: 12px;
+    color: var(--sand);
+    line-height: 1.7;
+    max-width: 220px;
+    margin-left: auto;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  /* ── FORM WRAPPER ── */
+  .form-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  /* ── SECTION BLOCK ── */
+  .form-section {
+    padding: 56px 0 48px;
+    border-bottom: 1px solid #1E1E1E;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--red);
+    letter-spacing: -0.03em;
+    user-select: none;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+    padding-bottom: 2px;
+    border-bottom: 2px solid var(--red);
+    display: inline-block;
+  }
+
+  /* ── FIELDS ── */
+  .fields {
+    display: grid;
+    gap: 28px;
+  }
+
+  .fields.two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sand);
+  }
+
+  label .req {
+    color: var(--red);
+    margin-left: 3px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="number"],
+  select,
+  textarea {
+    background: #111;
+    border: 1px solid #666;
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 14px 16px;
+    border-radius: 0;
+    width: 100%;
+    transition: border-color 0.2s, background 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+  }
+
+  input::placeholder,
+  textarea::placeholder { color: #666; }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--red);
+    background: #141414;
+  }
+
+  textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+  /* select arrow */
+  .select-wrap {
+    position: relative;
+  }
+  .select-wrap::after {
+    content: '↓';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sand);
+    font-size: 12px;
+    pointer-events: none;
+  }
+  .select-wrap select { padding-right: 40px; cursor: pointer; }
+  .select-wrap select option { background: #111; }
+
+  /* file upload */
+  .file-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #111;
+    border: 1px dashed #666;
+    padding: 20px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .file-label:hover { border-color: var(--sand); }
+  .file-label input { display: none; }
+  .file-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    color: var(--sand);
+  }
+  .file-text { font-size: 13px; color: #666; }
+  .file-text strong { display: block; font-size: 12px; font-weight: 500; color: var(--sand); margin-bottom: 2px; letter-spacing: 0.05em; }
+
+  .square-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #666;
+    border-radius: 0;
+    background: #111;
+    cursor: pointer;
+    flex-shrink: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .square-check input[type="checkbox"]:checked {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  .square-check input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border: 2px solid var(--cream);
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+
+  /* radio / checkbox group */
+  .radio-group,
+  .check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .radio-group.inline,
+  .check-group.inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+  }
+
+  .radio-item,
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .radio-item input,
+  .check-item input {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #333;
+    background: #111;
+    cursor: pointer;
+    flex-shrink: 0;
+    accent-color: var(--red);
+  }
+
+  .radio-item span,
+  .check-item span {
+    font-size: 13px;
+    color: var(--cream);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  /* social fields */
+  .social-field {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .social-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sand);
+    background: #161616;
+    border: 1px solid #666;
+    border-right: none;
+    padding: 0 14px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    min-width: 110px;
+    flex-shrink: 0;
+  }
+
+  .social-field input {
+    border-left: none;
+    flex: 1;
+  }
+
+  .social-field input:focus {
+    border-left: 1px solid var(--red);
+  }
+
+  /* phone */
+  .phone-wrap {
+    display: flex;
+    gap: 0;
+  }
+
+  .phone-wrap .phone-code {
+    flex-shrink: 0;
+    width: 200px;
+  }
+
+  .phone-wrap .phone-code select {
+    border-right: none;
+  }
+
+  .phone-wrap input[type="tel"] {
+    flex: 1;
+    border-left: none;
+  }
+
+  .phone-wrap input[type="tel"]:focus {
+    border-left: 1px solid var(--red);
+  }
+
+  /* hint */
+  .hint {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+    margin-top: -4px;
+  }
+
+  /* ── CONSENT SECTION ── */
+  .consent-section {
+    padding: 48px 0 56px;
+  }
+
+  .consent-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .consent-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px;
+    border: 1px solid #666;
+    transition: border-color 0.2s;
+  }
+
+  .consent-item:has(input:checked) { border-color: #2A2A2A; }
+
+  .consent-item input {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--red);
+    cursor: pointer;
+  }
+
+  .consent-text { font-size: 13px; color: #AAA; line-height: 1.6; }
+  .consent-text strong { color: var(--cream); font-weight: 500; display: block; margin-bottom: 3px; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ── SUBMIT ── */
+  .submit-area {
+    padding: 48px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .submit-note {
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-submit {
+    background: var(--red);
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    padding: 18px 56px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    border-radius: 0;
+  }
+
+  .btn-submit:hover { background: #C8321D; }
+  .btn-submit:active { transform: scale(0.98); }
+
+  /* ── SUCCESS PAGE ── */
+  .success-page {
+    display: none;
+    padding: 64px 0 0;
+  }
+
+  .success-page.visible { display: block; }
+
+  /* Confirmation block */
+  .confirm-block {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: start;
+    padding-bottom: 56px;
+    border-bottom: 1px solid #1E1E1E;
+  }
+
+  .confirm-badge {
+    width: 52px;
+    height: 52px;
+    border: 1px solid var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--red);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .confirm-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 80px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  .confirm-sub {
+    font-size: 14px;
+    color: var(--sand);
+    line-height: 1.7;
+  }
+
+  .confirm-tagline {
+    display: block;
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+    font-size: 13px;
+  }
+
+  /* Divider */
+  .faq-divider {
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .faq-divider::before,
+  .faq-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1E1E1E;
+  }
+
+  .faq-divider-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    white-space: nowrap;
+  }
+
+  /* FAQ header */
+  .faq-header {
+    margin-bottom: 48px;
+  }
+
+  .faq-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+
+  .faq-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  .faq-intro {
+    font-size: 14px;
+    color: var(--sand);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* FAQ items */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-item {
+    padding: 24px 0;
+    border-bottom: 1px solid #1A1A1A;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item:hover { border-bottom-color: #2A2A2A; }
+
+  .faq-q {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1.4;
+  }
+
+  .faq-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--red);
+    flex-shrink: 0;
+    min-width: 24px;
+  }
+
+  .faq-a {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.7;
+    padding-left: 40px;
+  }
+
+  .faq-a em {
+    color: #666;
+    font-style: italic;
+  }
+
+  /* Closing quote */
+  .faq-close {
+    padding: 64px 0 80px;
+    text-align: center;
+  }
+
+  .faq-close p {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: var(--cream);
+  }
+
+  @media (max-width: 640px) {
+    .confirm-block { grid-template-columns: 1fr; gap: 20px; }
+    .faq-a { padding-left: 28px; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid #111;
+    padding: 32px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p { font-size: 11px; color: #333; letter-spacing: 0.08em; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero { grid-template-columns: 1fr; padding: 48px 24px 40px; }
+    .hero-meta { text-align: left; }
+    .hero-meta p { margin-left: 0; }
+    .form-wrapper { padding: 0 24px 80px; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .fields.two-col { grid-template-columns: 1fr; }
+    .section-num { font-size: 48px; }
+    .section-title { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <p class="hero-eyebrow">LIFE by TheVelopers &nbsp;·&nbsp; Directorio de talento residente</p>
+    <h1 class="hero-title">
+      Desde<br>
+      <span>Adentro</span>
+    </h1>
+  </div>
+  <div class="hero-meta">
+    <p class="hero-tagline">Postulación</p>
+    <p>El talento que ya vive aquí.<br>Cupos limitados por categoría.<br>Se entra por calidad.</p>
+  </div>
+</header>
+
+<!-- FORM -->
+<main class="form-wrapper">
+  <form id="desde-adentro-form" novalidate>
+
+    <!-- 01 · INFORMACIÓN BÁSICA -->
+    <section class="form-section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Información básica</span>
+      </div>
+
+      <div class="fields two-col">
+
+        <div class="field">
+          <label>Nombre completo <span class="req">*</span></label>
+          <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+        </div>
+
+        <div class="field">
+          <label>Nombre de marca o negocio</label>
+          <input type="text" name="marca" placeholder="Si aplica">
+        </div>
+
+        <div class="field">
+          <label>Correo electrónico <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="correo@ejemplo.com" required>
+        </div>
+
+        <div class="field">
+          <label>Teléfono / WhatsApp <span class="req">*</span></label>
+          <div class="phone-wrap">
+            <div class="select-wrap phone-code">
+              <select name="telefono_codigo">
+                <option value="+507">🇵🇦 +507 Panamá</option>
+                <option value="+93">🇦🇫 +93 Afganistán</option>
+                <option value="+355">🇦🇱 +355 Albania</option>
+                <option value="+213">🇩🇿 +213 Argelia</option>
+                <option value="+376">🇦🇩 +376 Andorra</option>
+                <option value="+244">🇦🇴 +244 Angola</option>
+                <option value="+1-268">🇦🇬 +1-268 Antigua y Barbuda</option>
+                <option value="+966">🇸🇦 +966 Arabia Saudita</option>
+                <option value="+54">🇦🇷 +54 Argentina</option>
+                <option value="+374">🇦🇲 +374 Armenia</option>
+                <option value="+61">🇦🇺 +61 Australia</option>
+                <option value="+43">🇦🇹 +43 Austria</option>
+                <option value="+994">🇦🇿 +994 Azerbaiyán</option>
+                <option value="+1-242">🇧🇸 +1-242 Bahamas</option>
+                <option value="+880">🇧🇩 +880 Bangladés</option>
+                <option value="+1-246">🇧🇧 +1-246 Barbados</option>
+                <option value="+973">🇧🇭 +973 Baréin</option>
+                <option value="+32">🇧🇪 +32 Bélgica</option>
+                <option value="+501">🇧🇿 +501 Belice</option>
+                <option value="+229">🇧🇯 +229 Benín</option>
+                <option value="+375">🇧🇾 +375 Bielorrusia</option>
+                <option value="+591">🇧🇴 +591 Bolivia</option>
+                <option value="+387">🇧🇦 +387 Bosnia y Herzegovina</option>
+                <option value="+267">🇧🇼 +267 Botsuana</option>
+                <option value="+55">🇧🇷 +55 Brasil</option>
+                <option value="+673">🇧🇳 +673 Brunéi</option>
+                <option value="+359">🇧🇬 +359 Bulgaria</option>
+                <option value="+226">🇧🇫 +226 Burkina Faso</option>
+                <option value="+257">🇧🇮 +257 Burundi</option>
+                <option value="+975">🇧🇹 +975 Bután</option>
+                <option value="+238">🇨🇻 +238 Cabo Verde</option>
+                <option value="+855">🇰🇭 +855 Camboya</option>
+                <option value="+237">🇨🇲 +237 Camerún</option>
+                <option value="+1">🇨🇦 +1 Canadá</option>
+                <option value="+974">🇶🇦 +974 Catar</option>
+                <option value="+235">🇹🇩 +235 Chad</option>
+                <option value="+56">🇨🇱 +56 Chile</option>
+                <option value="+86">🇨🇳 +86 China</option>
+                <option value="+357">🇨🇾 +357 Chipre</option>
+                <option value="+57">🇨🇴 +57 Colombia</option>
+                <option value="+269">🇰🇲 +269 Comoras</option>
+                <option value="+242">🇨🇬 +242 Congo</option>
+                <option value="+243">🇨🇩 +243 Congo (RD)</option>
+                <option value="+850">🇰🇵 +850 Corea del Norte</option>
+                <option value="+82">🇰🇷 +82 Corea del Sur</option>
+                <option value="+225">🇨🇮 +225 Costa de Marfil</option>
+                <option value="+506">🇨🇷 +506 Costa Rica</option>
+                <option value="+385">🇭🇷 +385 Croacia</option>
+                <option value="+53">🇨🇺 +53 Cuba</option>
+                <option value="+45">🇩🇰 +45 Dinamarca</option>
+                <option value="+1-767">🇩🇲 +1-767 Dominica</option>
+                <option value="+593">🇪🇨 +593 Ecuador</option>
+                <option value="+20">🇪🇬 +20 Egipto</option>
+                <option value="+503">🇸🇻 +503 El Salvador</option>
+                <option value="+971">🇦🇪 +971 Emiratos Árabes</option>
+                <option value="+291">🇪🇷 +291 Eritrea</option>
+                <option value="+421">🇸🇰 +421 Eslovaquia</option>
+                <option value="+386">🇸🇮 +386 Eslovenia</option>
+                <option value="+34">🇪🇸 +34 España</option>
+                <option value="+1-869">🇰🇳 +1-869 St. Kitts y Nevis</option>
+                <option value="+1-758">🇱🇨 +1-758 St. Lucía</option>
+                <option value="+1-784">🇻🇨 +1-784 St. Vicente</option>
+                <option value="+1">🇺🇸 +1 Estados Unidos</option>
+                <option value="+251">🇪🇹 +251 Etiopía</option>
+                <option value="+679">🇫🇯 +679 Fiyi</option>
+                <option value="+63">🇵🇭 +63 Filipinas</option>
+                <option value="+358">🇫🇮 +358 Finlandia</option>
+                <option value="+33">🇫🇷 +33 Francia</option>
+                <option value="+241">🇬🇦 +241 Gabón</option>
+                <option value="+220">🇬🇲 +220 Gambia</option>
+                <option value="+995">🇬🇪 +995 Georgia</option>
+                <option value="+233">🇬🇭 +233 Ghana</option>
+                <option value="+350">🇬🇮 +350 Gibraltar</option>
+                <option value="+299">🇬🇱 +299 Groenlandia</option>
+                <option value="+30">🇬🇷 +30 Grecia</option>
+                <option value="+1-473">🇬🇩 +1-473 Granada</option>
+                <option value="+502">🇬🇹 +502 Guatemala</option>
+                <option value="+224">🇬🇳 +224 Guinea</option>
+                <option value="+240">🇬🇶 +240 Guinea Ecuatorial</option>
+                <option value="+245">🇬🇼 +245 Guinea-Bisáu</option>
+                <option value="+592">🇬🇾 +592 Guyana</option>
+                <option value="+509">🇭🇹 +509 Haití</option>
+                <option value="+504">🇭🇳 +504 Honduras</option>
+                <option value="+36">🇭🇺 +36 Hungría</option>
+                <option value="+91">🇮🇳 +91 India</option>
+                <option value="+62">🇮🇩 +62 Indonesia</option>
+                <option value="+964">🇮🇶 +964 Irak</option>
+                <option value="+98">🇮🇷 +98 Irán</option>
+                <option value="+353">🇮🇪 +353 Irlanda</option>
+                <option value="+354">🇮🇸 +354 Islandia</option>
+                <option value="+972">🇮🇱 +972 Israel</option>
+                <option value="+39">🇮🇹 +39 Italia</option>
+                <option value="+1-876">🇯🇲 +1-876 Jamaica</option>
+                <option value="+81">🇯🇵 +81 Japón</option>
+                <option value="+962">🇯🇴 +962 Jordania</option>
+                <option value="+7">🇰🇿 +7 Kazajistán</option>
+                <option value="+254">🇰🇪 +254 Kenia</option>
+                <option value="+996">🇰🇬 +996 Kirguistán</option>
+                <option value="+686">🇰🇮 +686 Kiribati</option>
+                <option value="+965">🇰🇼 +965 Kuwait</option>
+                <option value="+856">🇱🇦 +856 Laos</option>
+                <option value="+266">🇱🇸 +266 Lesoto</option>
+                <option value="+371">🇱🇻 +371 Letonia</option>
+                <option value="+961">🇱🇧 +961 Líbano</option>
+                <option value="+231">🇱🇷 +231 Liberia</option>
+                <option value="+218">🇱🇾 +218 Libia</option>
+                <option value="+423">🇱🇮 +423 Liechtenstein</option>
+                <option value="+370">🇱🇹 +370 Lituania</option>
+                <option value="+352">🇱🇺 +352 Luxemburgo</option>
+                <option value="+853">🇲🇴 +853 Macao</option>
+                <option value="+261">🇲🇬 +261 Madagascar</option>
+                <option value="+60">🇲🇾 +60 Malasia</option>
+                <option value="+265">🇲🇼 +265 Malaui</option>
+                <option value="+960">🇲🇻 +960 Maldivas</option>
+                <option value="+223">🇲🇱 +223 Malí</option>
+                <option value="+356">🇲🇹 +356 Malta</option>
+                <option value="+212">🇲🇦 +212 Marruecos</option>
+                <option value="+692">🇲🇭 +692 Marshall</option>
+                <option value="+222">🇲🇷 +222 Mauritania</option>
+                <option value="+230">🇲🇺 +230 Mauricio</option>
+                <option value="+52">🇲🇽 +52 México</option>
+                <option value="+691">🇫🇲 +691 Micronesia</option>
+                <option value="+373">🇲🇩 +373 Moldavia</option>
+                <option value="+377">🇲🇨 +377 Mónaco</option>
+                <option value="+976">🇲🇳 +976 Mongolia</option>
+                <option value="+382">🇲🇪 +382 Montenegro</option>
+                <option value="+258">🇲🇿 +258 Mozambique</option>
+                <option value="+95">🇲🇲 +95 Myanmar</option>
+                <option value="+264">🇳🇦 +264 Namibia</option>
+                <option value="+674">🇳🇷 +674 Nauru</option>
+                <option value="+977">🇳🇵 +977 Nepal</option>
+                <option value="+505">🇳🇮 +505 Nicaragua</option>
+                <option value="+227">🇳🇪 +227 Níger</option>
+                <option value="+234">🇳🇬 +234 Nigeria</option>
+                <option value="+47">🇳🇴 +47 Noruega</option>
+                <option value="+64">🇳🇿 +64 Nueva Zelanda</option>
+                <option value="+968">🇴🇲 +968 Omán</option>
+                <option value="+31">🇳🇱 +31 Países Bajos</option>
+                <option value="+92">🇵🇰 +92 Pakistán</option>
+                <option value="+680">🇵🇼 +680 Palaos</option>
+                <option value="+970">🇵🇸 +970 Palestina</option>
+                <option value="+675">🇵🇬 +675 Papúa Nueva Guinea</option>
+                <option value="+595">🇵🇾 +595 Paraguay</option>
+                <option value="+51">🇵🇪 +51 Perú</option>
+                <option value="+48">🇵🇱 +48 Polonia</option>
+                <option value="+351">🇵🇹 +351 Portugal</option>
+                <option value="+44">🇬🇧 +44 Reino Unido</option>
+                <option value="+236">🇨🇫 +236 Rep. Centroafricana</option>
+                <option value="+1-809">🇩🇴 +1-809 Rep. Dominicana</option>
+                <option value="+420">🇨🇿 +420 Rep. Checa</option>
+                <option value="+7">🇷🇺 +7 Rusia</option>
+                <option value="+250">🇷🇼 +250 Ruanda</option>
+                <option value="+40">🇷🇴 +40 Rumanía</option>
+                <option value="+685">🇼🇸 +685 Samoa</option>
+                <option value="+378">🇸🇲 +378 San Marino</option>
+                <option value="+239">🇸🇹 +239 Santo Tomé y Príncipe</option>
+                <option value="+221">🇸🇳 +221 Senegal</option>
+                <option value="+381">🇷🇸 +381 Serbia</option>
+                <option value="+248">🇸🇨 +248 Seychelles</option>
+                <option value="+232">🇸🇱 +232 Sierra Leona</option>
+                <option value="+65">🇸🇬 +65 Singapur</option>
+                <option value="+963">🇸🇾 +963 Siria</option>
+                <option value="+252">🇸🇴 +252 Somalia</option>
+                <option value="+94">🇱🇰 +94 Sri Lanka</option>
+                <option value="+27">🇿🇦 +27 Sudáfrica</option>
+                <option value="+249">🇸🇩 +249 Sudán</option>
+                <option value="+211">🇸🇸 +211 Sudán del Sur</option>
+                <option value="+46">🇸🇪 +46 Suecia</option>
+                <option value="+41">🇨🇭 +41 Suiza</option>
+                <option value="+597">🇸🇷 +597 Surinam</option>
+                <option value="+268">🇸🇿 +268 Suazilandia</option>
+                <option value="+992">🇹🇯 +992 Tayikistán</option>
+                <option value="+255">🇹🇿 +255 Tanzania</option>
+                <option value="+66">🇹🇭 +66 Tailandia</option>
+                <option value="+670">🇹🇱 +670 Timor Oriental</option>
+                <option value="+228">🇹🇬 +228 Togo</option>
+                <option value="+676">🇹🇴 +676 Tonga</option>
+                <option value="+1-868">🇹🇹 +1-868 Trinidad y Tobago</option>
+                <option value="+216">🇹🇳 +216 Túnez</option>
+                <option value="+993">🇹🇲 +993 Turkmenistán</option>
+                <option value="+90">🇹🇷 +90 Turquía</option>
+                <option value="+688">🇹🇻 +688 Tuvalu</option>
+                <option value="+380">🇺🇦 +380 Ucrania</option>
+                <option value="+256">🇺🇬 +256 Uganda</option>
+                <option value="+598">🇺🇾 +598 Uruguay</option>
+                <option value="+998">🇺🇿 +998 Uzbekistán</option>
+                <option value="+678">🇻🇺 +678 Vanuatu</option>
+                <option value="+58">🇻🇪 +58 Venezuela</option>
+                <option value="+84">🇻🇳 +84 Vietnam</option>
+                <option value="+967">🇾🇪 +967 Yemen</option>
+                <option value="+253">🇩🇯 +253 Yibuti</option>
+                <option value="+260">🇿🇲 +260 Zambia</option>
+                <option value="+263">🇿🇼 +263 Zimbabue</option>
+              </select>
+            </div>
+            <input type="tel" name="telefono_numero" placeholder="6000-0000" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Proyecto <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select name="proyecto" required>
+              <option value="" disabled selected>Selecciona tu proyecto</option>
+              <option>Dovle</option>
+              <option>Dovle Selva</option>
+              <option>Velure</option>
+              <option>Victory Sport</option>
+              <option>Victory Wellness</option>
+              <option>Vita</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Dirección residencial actual <span class="req">*</span></label>
+          <input type="text" name="direccion" placeholder="Panamá, Ciudad de Panamá" required>
+        </div>
+
+        <div class="field full">
+          <label>Relación con la comunidad <span class="req">*</span></label>
+          <div class="check-group inline">
+            <label class="check-item square-check">
+              <input type="checkbox" name="relacion" value="Propietario">
+              <span>Propietario</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="relacion" value="Residente">
+              <span>Residente</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 02 · PERFIL PROFESIONAL -->
+    <section class="form-section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Perfil profesional</span>
+      </div>
+
+      <div class="fields two-col">
+
+        <div class="field">
+          <label>Área principal de especialización <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select name="area" required>
+              <option value="" disabled selected>Selecciona una categoría</option>
+              <option>Arquitectura y diseño</option>
+              <option>Legal y asesoría jurídica</option>
+              <option>Finanzas e inversiones</option>
+              <option>Tecnología y desarrollo</option>
+              <option>Consultoría estratégica</option>
+              <option>Coaching y desarrollo personal</option>
+              <option>Creativos y comunicación</option>
+              <option>Salud y bienestar</option>
+              <option>Educación y formación</option>
+              <option>Marketing y branding</option>
+              <option>Otra especialidad</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Años de experiencia <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select name="experiencia" required>
+              <option value="" disabled selected>Selecciona</option>
+              <option>1–3 años</option>
+              <option>4–7 años</option>
+              <option>8–12 años</option>
+              <option>Más de 12 años</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label>Servicios que ofreces <span class="req">*</span></label>
+          <textarea name="servicios" placeholder="Describe los servicios que ofreces de forma concisa" required></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Descripción de tu perfil <span class="req">*</span></label>
+          <textarea name="descripcion" placeholder="En 2–3 líneas, ¿quién eres y qué haces?" required></textarea>
+          <p class="hint">Este texto puede aparecer directamente en tu ficha del directorio.</p>
+        </div>
+
+        <div class="field full">
+          <label>Certificaciones o estudios relevantes</label>
+          <textarea name="certificaciones" placeholder="Títulos, certificaciones, programas relevantes"></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 03 · OFERTA DE VALOR -->
+    <section class="form-section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Oferta de valor</span>
+      </div>
+
+      <div class="fields">
+
+        <div class="field">
+          <label>¿Qué te diferencia? <span class="req">*</span></label>
+          <textarea name="diferenciador" placeholder="¿Qué hace único tu trabajo o enfoque frente a otros en tu área?" required></textarea>
+        </div>
+
+        <div class="field">
+          <label>Tipo de clientes con los que trabajas principalmente <span class="req">*</span></label>
+          <textarea name="clientes" placeholder="Ej. empresas familiares, startups, particulares, corporativos..." required></textarea>
+        </div>
+
+        <div class="field">
+          <label>Resultados o logros que deseas destacar</label>
+          <textarea name="logros" placeholder="Proyectos, casos de éxito, métricas relevantes"></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 04 · PRESENCIA DIGITAL -->
+    <section class="form-section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">Presencia digital</span>
+      </div>
+
+      <div class="fields two-col">
+
+        <div class="field">
+          <label>Página web</label>
+          <input type="url" name="web" placeholder="https://tuwebsite.com">
+        </div>
+
+        <div class="field">
+          <label>Portafolio o trabajos previos</label>
+          <input type="url" name="portfolio" placeholder="https://behance.net/tu-perfil o similar">
+        </div>
+
+        <div class="field full">
+          <label>Redes sociales profesionales</label>
+          <div class="fields" style="gap:12px; margin-top:4px;">
+            <div class="social-field">
+              <span class="social-label">Facebook</span>
+              <input type="url" name="red_facebook" placeholder="https://facebook.com/tu-perfil">
+            </div>
+            <div class="social-field">
+              <span class="social-label">Instagram</span>
+              <input type="url" name="red_instagram" placeholder="https://instagram.com/tu-perfil">
+            </div>
+            <div class="social-field">
+              <span class="social-label">LinkedIn</span>
+              <input type="url" name="red_linkedin" placeholder="https://linkedin.com/in/tu-perfil">
+            </div>
+            <div class="social-field">
+              <span class="social-label">Threads</span>
+              <input type="url" name="red_threads" placeholder="https://threads.net/@tu-perfil">
+            </div>
+            <div class="social-field">
+              <span class="social-label">TikTok</span>
+              <input type="url" name="red_tiktok" placeholder="https://tiktok.com/@tu-perfil">
+            </div>
+            <div class="social-field">
+              <span class="social-label">X / Twitter</span>
+              <input type="url" name="red_twitter" placeholder="https://x.com/tu-perfil">
+            </div>
+            <div class="social-field">
+              <span class="social-label">YouTube</span>
+              <input type="url" name="red_youtube" placeholder="https://youtube.com/@tu-canal">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 05 · MATERIAL VISUAL -->
+    <section class="form-section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-title">Material visual</span>
+      </div>
+
+      <div class="fields">
+
+        <div class="field">
+          <label>Foto de perfil o logo <span class="req">*</span></label>
+          <label class="file-label">
+            <input type="file" name="foto" accept="image/*">
+            <div class="file-icon">↑</div>
+            <div class="file-text">
+              <strong>Subir imagen</strong>
+              JPG, PNG o SVG · Mínimo 800×800px · Fondo limpio preferible
+            </div>
+          </label>
+          <p class="hint" id="foto-name"></p>
+        </div>
+
+        <div class="field">
+          <label>Imágenes de tu trabajo</label>
+          <label class="file-label">
+            <input type="file" name="portfolio_imgs" accept="image/*" multiple>
+            <div class="file-icon">↑</div>
+            <div class="file-text">
+              <strong>Subir hasta 5 imágenes</strong>
+              Proyectos, productos o muestras de tu trabajo
+            </div>
+          </label>
+          <p class="hint" id="portfolio-name"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 06 · COMUNIDAD LIFE -->
+    <section class="form-section">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <span class="section-title">Comunidad LIFE</span>
+      </div>
+
+      <div class="fields">
+
+        <div class="field">
+          <label>¿Has trabajado antes con LIFE o con TheVelopers?</label>
+          <div class="radio-group inline">
+            <label class="check-item square-check">
+              <input type="checkbox" name="trabajo_previo" value="Sí">
+              <span>Sí</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="trabajo_previo" value="No">
+              <span>No</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field" id="trabajo-detalle-wrap" style="display:none">
+          <label>¿En qué consistió esa colaboración?</label>
+          <textarea name="trabajo_detalle" placeholder="Cuéntanos brevemente"></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Te interesa participar en eventos o activaciones de LIFE?</label>
+          <div class="check-group">
+            <label class="check-item square-check">
+              <input type="checkbox" name="activaciones" value="Taller digital">
+              <span>Taller digital</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="activaciones" value="Charla en TAF">
+              <span>Charla en TAF</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="activaciones" value="Participación en Unlocked">
+              <span>Participación en Unlocked</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="activaciones" value="Podcast">
+              <span>Podcast de LIFE</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="activaciones" value="Artículo para el blog">
+              <span>Artículo para el blog</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="activaciones" value="Contenido educativo para la app">
+              <span>Contenido educativo para la app</span>
+            </label>
+            <label class="check-item square-check">
+              <input type="checkbox" name="activaciones" value="Ninguna por ahora">
+              <span>Ninguna por ahora</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONSENTIMIENTO -->
+    <section class="consent-section">
+      <div class="section-header">
+        <span class="section-num" style="color:var(--red)">07</span>
+        <span class="section-title">Consentimiento</span>
+      </div>
+
+      <div class="consent-block">
+
+        <label class="consent-item">
+          <input type="checkbox" name="consent_perfil" required>
+          <div class="consent-text">
+            <strong>Publicación de perfil</strong>
+            Autorizo la publicación de mi perfil, foto y descripción profesional en la plataforma LIFE by TheVelopers y sus canales digitales.
+          </div>
+        </label>
+
+        <label class="consent-item">
+          <input type="checkbox" name="consent_contacto" required>
+          <div class="consent-text">
+            <strong>Contacto de clientes</strong>
+            Acepto ser contactado directamente por miembros de la comunidad LIFE interesados en mis servicios.
+          </div>
+        </label>
+
+        <label class="consent-item">
+          <input type="checkbox" name="consent_curaduria" required>
+          <div class="consent-text">
+            <strong>Proceso de curaduría</strong>
+            Entiendo que mi participación está sujeta a revisión del comité de curaduría de LIFE, y que puede ser suspendida si no se mantiene el aporte activo al ecosistema.
+          </div>
+        </label>
+
+      </div>
+    </section>
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <p class="submit-note">Los campos marcados con <span style="color:var(--red)">*</span> son obligatorios.</p>
+      <button type="submit" class="btn-submit">Enviar postulación →</button>
+    </div>
+
+    <!-- SUCCESS + FAQs PAGE (unused - handled by standalone page) -->
+    <div class="success-page" id="success-msg" style="display:none!important"></div>
+
+  </form>
+</main>
+
+<!-- SUCCESS PAGE (shown after submit, replaces everything above) -->
+<div id="success-page" style="display:none;">
+
+  <header class="hero">
+    <div>
+      <p class="hero-eyebrow">LIFE by TheVelopers &nbsp;·&nbsp; Directorio de talento residente</p>
+      <h1 class="hero-title">Desde<br><span>Adentro</span></h1>
+    </div>
+    <div class="hero-meta">
+      <p class="hero-tagline">Confirmación</p>
+      <p>Tu postulación<br>ha sido recibida.</p>
+    </div>
+  </header>
+
+  <div class="form-wrapper">
+
+    <div class="success-page-inner">
+
+      <!-- Confirmation block -->
+      <div class="confirm-block">
+        <div class="confirm-badge">✓</div>
+        <div class="confirm-text">
+          <h2 class="confirm-title">Postulación<br>recibida.</h2>
+          <p class="confirm-sub">El equipo de LIFE revisará tu perfil. Si tu postulación avanza, nos pondremos en contacto pronto.<br><span class="confirm-tagline">El talento no estaba lejos. Vive aquí.</span></p>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="faq-divider">
+        <span class="faq-divider-label">Mientras tanto</span>
+      </div>
+
+      <!-- FAQs header -->
+      <div class="faq-header">
+        <p class="faq-eyebrow">Preguntas frecuentes</p>
+        <h3 class="faq-title">Todo lo que<br>necesitas saber.</h3>
+        <p class="faq-intro">Sabemos que cuando algo despierta tu interés, también vienen las preguntas. Acá reunimos las respuestas más comunes para que entiendas cómo y por qué From Within es para ti.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">01</span><span>¿Qué es From Within?</span></div>
+          <p class="faq-a">Es un programa que visibiliza e impulsa el talento profesional en la comunidad de TheVelopers.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">02</span><span>¿Es un marketplace o un directorio?</span></div>
+          <p class="faq-a">No existen transacciones, intermediación ni búsqueda de proveedores. Es talento local, es una comunidad con criterio, es economía interna con intención.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">03</span><span>¿Quién puede postular?</span></div>
+          <p class="faq-a">Residentes y propietarios con trayectoria profesional comprobable.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">04</span><span>¿Cómo se seleccionan los perfiles?</span></div>
+          <p class="faq-a">A través de un comité interno que evalúa la experiencia, la claridad del servicio y el aporte al programa From Within.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">05</span><span>¿Tiene costo participar?</span></div>
+          <p class="faq-a">El acceso es gratuito. El aporte es valioso para la comunidad.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">06</span><span>¿Qué significa aportar valor?</span></div>
+          <p class="faq-a">Participar en actividades como charlas en TAF, talleres digitales, contenido educativo, artículos para blog, colaboración en podcast o experiencias dentro de LIFE alineadas con tu talento profesional. <em>El costo de producción corre por el residente.</em></p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">07</span><span>¿Mi perfil es público?</span></div>
+          <p class="faq-a">Los perfiles seleccionados forman parte de una plataforma visible en el website y/o app de LIFE.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">08</span><span>¿Puedo ser removido del programa?</span></div>
+          <p class="faq-a">La permanencia depende de la participación activa y el cumplimiento de los criterios del programa.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">09</span><span>¿Hay cupos limitados?</span></div>
+          <p class="faq-a">Cada categoría tiene cupos definidos para mantener la calidad del programa.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-num">10</span><span>¿TheVelopers intermedia los servicios?</span></div>
+          <p class="faq-a">Las conexiones y acuerdos son directos entre residentes.</p>
+        </div>
+      </div>
+
+      <div class="faq-close">
+        <p>"Desde Adentro.<br>El talento que ya vive aquí."</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>LIFE by TheVelopers &nbsp;·&nbsp; Desde Adentro</p>
+  <p>© 2025 TheVelopers. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  // File name display
+  document.querySelector('input[name="foto"]').addEventListener('change', function() {
+    document.getElementById('foto-name').textContent = this.files[0]?.name || '';
+  });
+  document.querySelector('input[name="portfolio_imgs"]').addEventListener('change', function() {
+    const names = Array.from(this.files).map(f => f.name).join(', ');
+    document.getElementById('portfolio-name').textContent = names;
+  });
+
+  // Show trabajo detalle if "Sí"
+  document.querySelectorAll('input[name="trabajo_previo"]').forEach(r => {
+    r.addEventListener('change', function() {
+      const siChecked = Array.from(document.querySelectorAll('input[name="trabajo_previo"]'))
+        .some(i => i.value === 'Sí' && i.checked);
+      document.getElementById('trabajo-detalle-wrap').style.display = siChecked ? 'flex' : 'none';
+    });
+  });
+
+  // Form submit
+  document.getElementById('desde-adentro-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const required = this.querySelectorAll('[required]');
+    let valid = true;
+
+    required.forEach(el => {
+      el.style.borderColor = '';
+      if (el.type === 'radio' || el.type === 'checkbox') {
+        const group = document.querySelectorAll(`[name="${el.name}"]`);
+        const checked = Array.from(group).some(i => i.checked);
+        if (!checked) {
+          valid = false;
+          group.forEach(i => i.closest('label')?.style && (i.closest('label').style.outline = '1px solid #E8432D'));
+        }
+      } else {
+        if (!el.value.trim()) {
+          el.style.borderColor = '#E8432D';
+          if (valid) el.focus();
+          valid = false;
+        }
+      }
+    });
+
+    if (!valid) return;
+
+    // Simulate send
+    document.querySelector('.btn-submit').textContent = 'Enviando...';
+    document.querySelector('.btn-submit').disabled = true;
+
+    setTimeout(() => {
+      // Hide entire form page
+      document.getElementById('desde-adentro-form').style.display = 'none';
+      document.querySelector('header.hero').style.display = 'none';
+      document.querySelector('main.form-wrapper').style.display = 'none';
+
+      // Show success page
+      const successPage = document.getElementById('success-page');
+      successPage.style.display = 'block';
+
+      // Scroll to very top
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 800);
+  });
+</script>
+</body>
+</html>
