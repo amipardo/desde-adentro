@@ -1414,14 +1414,34 @@
     });
 
     try {
-      // fetch con no-cors — el script se ejecuta aunque no podamos leer la respuesta
-      fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
-        method: 'GET',
-        mode: 'no-cors',
+      // Crear un iframe oculto y un form que apunte al script
+      // Esto evita CORS completamente — el browser envía el form directamente
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden-submit';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      const form = document.createElement('form');
+      form.method = 'GET';
+      form.action = APPS_SCRIPT_URL;
+      form.target = 'hidden-submit';
+
+      // Agregar todos los campos como inputs hidden
+      const fields = {};
+      params.forEach((value, key) => { fields[key] = value; });
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
       });
 
-      // Esperar 2.5s para que el script procese y mostrar confirmación
-      await new Promise(r => setTimeout(r, 2500));
+      document.body.appendChild(form);
+      form.submit();
+
+      // Esperar 3s y mostrar confirmación
+      await new Promise(r => setTimeout(r, 3000));
 
       document.querySelector('header.hero').style.display = 'none';
       document.querySelector('main.form-wrapper').style.display = 'none';
