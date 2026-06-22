@@ -1076,48 +1076,10 @@
       </div>
     </section>
 
-    <!-- 04 · MATERIAL VISUAL -->
+    <!-- 04 · COMUNIDAD LIFE -->
     <section class="form-section">
       <div class="section-header">
         <span class="section-num">04</span>
-        <span class="section-title">Material visual</span>
-      </div>
-
-      <div class="fields">
-
-        <div class="field">
-          <label>Foto de perfil o logo <span class="req">*</span></label>
-          <label class="file-label">
-            <input type="file" name="foto" accept="image/*">
-            <div class="file-icon">↑</div>
-            <div class="file-text">
-              <strong>Subir imagen</strong>
-              JPG, PNG o SVG · Mínimo 800×800px · Fondo limpio preferible
-            </div>
-          </label>
-          <p class="hint" id="foto-name"></p>
-        </div>
-
-        <div class="field">
-          <label>Imágenes de tu trabajo</label>
-          <label class="file-label">
-            <input type="file" name="portfolio_imgs" accept="image/*" multiple>
-            <div class="file-icon">↑</div>
-            <div class="file-text">
-              <strong>Subir hasta 5 imágenes</strong>
-              Proyectos, productos o muestras de tu trabajo
-            </div>
-          </label>
-          <p class="hint" id="portfolio-name"></p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 05 · COMUNIDAD LIFE -->
-    <section class="form-section">
-      <div class="section-header">
-        <span class="section-num">05</span>
         <span class="section-title">Comunidad LIFE</span>
       </div>
 
@@ -1182,7 +1144,7 @@
     <!-- CONSENTIMIENTO -->
     <section class="consent-section">
       <div class="section-header">
-        <span class="section-num" style="color:var(--red)">06</span>
+        <span class="section-num" style="color:var(--red)">05</span>
         <span class="section-title">Consentimiento</span>
       </div>
 
@@ -1350,19 +1312,7 @@
     });
   });
 
-  // Convert file to base64
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve({
-        nombre: file.name,
-        tipo: file.type,
-        data: reader.result.split(',')[1]
-      });
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
+  // Convert file to base64 — removed (no file upload)
 
   function getChecked(name) {
     return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value).join(', ');
@@ -1400,15 +1350,6 @@
     btn.textContent = 'Enviando...';
     btn.disabled = true;
 
-    // Collect files as base64
-    const archivos = [];
-    const fotoInput = document.querySelector('input[name="foto"]');
-    const portfolioInput = document.querySelector('input[name="portfolio_imgs"]');
-    if (fotoInput && fotoInput.files[0]) archivos.push(await fileToBase64(fotoInput.files[0]));
-    if (portfolioInput) {
-      for (const file of portfolioInput.files) archivos.push(await fileToBase64(file));
-    }
-
     // Build params — send as GET via hidden iframe to bypass CORS
     const params = new URLSearchParams({
       nombre:            val('nombre'),
@@ -1432,7 +1373,6 @@
       consent_perfil:    document.querySelector('[name="consent_perfil"]').checked ? 'Sí' : 'No',
       consent_contacto:  document.querySelector('[name="consent_contacto"]').checked ? 'Sí' : 'No',
       consent_curaduria: document.querySelector('[name="consent_curaduria"]').checked ? 'Sí' : 'No',
-      archivos_b64:      JSON.stringify(archivos),
     });
 
     try {
