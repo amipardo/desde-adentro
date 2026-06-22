@@ -1414,12 +1414,14 @@
     });
 
     try {
-      // Use no-cors + image trick to bypass CORS — show success immediately
-      const img = new Image();
-      img.src = `${APPS_SCRIPT_URL}?${params.toString()}`;
+      // fetch con no-cors — el script se ejecuta aunque no podamos leer la respuesta
+      fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
+        method: 'GET',
+        mode: 'no-cors',
+      });
 
-      // Wait 2s for script to process, then show success
-      await new Promise(r => setTimeout(r, 2000));
+      // Esperar 2.5s para que el script procese y mostrar confirmación
+      await new Promise(r => setTimeout(r, 2500));
 
       document.querySelector('header.hero').style.display = 'none';
       document.querySelector('main.form-wrapper').style.display = 'none';
