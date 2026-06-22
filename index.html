@@ -1409,7 +1409,8 @@
       for (const file of portfolioInput.files) archivos.push(await fileToBase64(file));
     }
 
-    const payload = {
+    // Build params — send as GET via hidden iframe to bypass CORS
+    const params = new URLSearchParams({
       nombre:            val('nombre'),
       email:             val('email'),
       telefono_codigo:   val('telefono_codigo'),
@@ -1431,24 +1432,37 @@
       consent_perfil:    document.querySelector('[name="consent_perfil"]').checked ? 'Sí' : 'No',
       consent_contacto:  document.querySelector('[name="consent_contacto"]').checked ? 'Sí' : 'No',
       consent_curaduria: document.querySelector('[name="consent_curaduria"]').checked ? 'Sí' : 'No',
-      archivos,
-    };
+      archivos_b64:      JSON.stringify(archivos),
+    });
 
     try {
-      const res = await fetch('https://hook.us2.make.com/vai4g6imjsj2jyah1hncidaybo7vg6vv', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden-submit';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      const form = document.createElement('form');
+      form.method = 'GET';
+      form.action = APPS_SCRIPT_URL;
+      form.target = 'hidden-submit';
+
+      params.forEach((value, key) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
       });
 
-      if (res.ok) {
-        document.querySelector('header.hero').style.display = 'none';
-        document.querySelector('main.form-wrapper').style.display = 'none';
-        document.getElementById('success-page').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      } else {
-        throw new Error('Error en Make');
-      }
+      document.body.appendChild(form);
+      form.submit();
+
+      await new Promise(r => setTimeout(r, 3000));
+
+      document.querySelector('header.hero').style.display = 'none';
+      document.querySelector('main.form-wrapper').style.display = 'none';
+      document.getElementById('success-page').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'instant' });
     } catch (err) {
       btn.textContent = 'Error de conexión. Intenta de nuevo.';
       btn.disabled = false;
