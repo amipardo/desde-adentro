@@ -1350,7 +1350,20 @@
     });
   });
 
-  // Collect checkboxes by name
+  // Convert file to base64
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve({
+        nombre: file.name,
+        tipo: file.type,
+        data: reader.result.split(',')[1]
+      });
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   function getChecked(name) {
     return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value).join(', ');
   }
@@ -1360,7 +1373,6 @@
     return el ? el.value.trim() : '';
   }
 
-  // Form submit
   document.getElementById('desde-adentro-form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -1388,65 +1400,62 @@
     btn.textContent = 'Enviando...';
     btn.disabled = true;
 
-    // Build params — send as GET to avoid CORS
-    const params = new URLSearchParams({
-      nombre:           val('nombre'),
-      email:            val('email'),
-      telefono_codigo:  val('telefono_codigo'),
-      telefono_numero:  val('telefono_numero'),
-      proyecto:         val('proyecto'),
-      relacion:         getChecked('relacion'),
-      area:             val('area'),
-      experiencia:      val('experiencia'),
-      descripcion:      val('descripcion'),
-      diferenciador:    val('diferenciador'),
-      web:              val('web'),
-      portfolio:        val('portfolio'),
-      red_facebook:     val('red_facebook'),
-      red_instagram:    val('red_instagram'),
-      red_linkedin:     val('red_linkedin'),
-      trabajo_previo:   getChecked('trabajo_previo'),
-      trabajo_detalle:  val('trabajo_detalle'),
-      activaciones:     getChecked('activaciones'),
-      consent_perfil:   document.querySelector('[name="consent_perfil"]').checked ? 'Sí' : 'No',
-      consent_contacto: document.querySelector('[name="consent_contacto"]').checked ? 'Sí' : 'No',
-      consent_curaduria:document.querySelector('[name="consent_curaduria"]').checked ? 'Sí' : 'No',
-    });
+    // Collect files as base64
+    const archivos = [];
+    const fotoInput = document.querySelector('input[name="foto"]');
+    const portfolioInput = document.querySelector('input[name="portfolio_imgs"]');
+    if (fotoInput && fotoInput.files[0]) archivos.push(await fileToBase64(fotoInput.files[0]));
+    if (portfolioInput) {
+      for (const file of portfolioInput.files) archivos.push(await fileToBase64(file));
+    }
+
+    const payload = {
+      nombre:            val('nombre'),
+      email:             val('email'),
+      telefono_codigo:   val('telefono_codigo'),
+      telefono_numero:   val('telefono_numero'),
+      proyecto:          val('proyecto'),
+      relacion:          getChecked('relacion'),
+      area:              val('area'),
+      experiencia:       val('experiencia'),
+      descripcion:       val('descripcion'),
+      diferenciador:     val('diferenciador'),
+      web:               val('web'),
+      portfolio:         val('portfolio'),
+      red_facebook:      val('red_facebook'),
+      red_instagram:     val('red_instagram'),
+      red_linkedin:      val('red_linkedin'),
+      trabajo_previo:    getChecked('trabajo_previo'),
+      trabajo_detalle:   val('trabajo_detalle'),
+      activaciones:      getChecked('activaciones'),
+      consent_perfil:    document.querySelector('[name="consent_perfil"]').checked ? 'Sí' : 'No',
+      consent_contacto:  document.querySelector('[name="consent_contacto"]').checked ? 'Sí' : 'No',
+      consent_curaduria: document.querySelector('[name="consent_curaduria"]').checked ? 'Sí' : 'No',
+      archivos,
+    };
 
     try {
-      // Crear un iframe oculto y un form que apunte al script
-      // Esto evita CORS completamente — el browser envía el form directamente
-      const iframe = document.createElement('iframe');
-      iframe.name = 'hidden-submit';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-
-      const form = document.createElement('form');
-      form.method = 'GET';
-      form.action = APPS_SCRIPT_URL;
-      form.target = 'hidden-submit';
-
-      // Agregar todos los campos como inputs hidden
-      const fields = {};
-      params.forEach((value, key) => { fields[key] = value; });
-      Object.entries(fields).forEach(([key, value]) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
+      const res = await fetch('https://hook.us2.make.com/vai4g6imjsj2jyah1hncidaybo7vg6vv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
-      document.body.appendChild(form);
-      form.submit();
-
-      // Esperar 3s y mostrar confirmación
-      await new Promise(r => setTimeout(r, 3000));
-
-      document.querySelector('header.hero').style.display = 'none';
-      document.querySelector('main.form-wrapper').style.display = 'none';
-      document.getElementById('success-page').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (res.ok) {
+        document.querySelector('header.hero').style.display = 'none';
+        document.querySelector('main.form-wrapper').style.display = 'none';
+        document.getElementById('success-page').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else {
+        throw new Error('Error en Make');
+      }
+    } catch (err) {
+      btn.textContent = 'Error de conexión. Intenta de nuevo.';
+      btn.disabled = false;
+      btn.style.background = '#333';
+      console.error(err);
+    }
+  });
 
     } catch (err) {
       btn.textContent = 'Error de conexión. Intenta de nuevo.';
