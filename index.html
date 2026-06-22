@@ -3,22 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desde Adentro — LIFE by TheVelopers</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800;900&display=swap');
+<title>From Within — LIFE by TheVelopers</title>
+<style>@font-face { font-family: 'CreatoDisplay-Black'; src: url('https://amipardo.github.io/desde-adentro/CreatoDisplay-Black.otf') format('opentype'); }
+@font-face { font-family: 'CreatoDisplay-Bold'; src: url('https://amipardo.github.io/desde-adentro/CreatoDisplay-Bold.otf') format('opentype'); }
+@font-face { font-family: 'CreatoDisplay-Regular'; src: url('https://amipardo.github.io/desde-adentro/CreatoDisplay-Regular.otf') format('opentype'); }
+@font-face { font-family: 'Korachi'; src: url('https://amipardo.github.io/desde-adentro/Korachi_Italic.otf') format('opentype'); }
+
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --black:   #0A0A0A;
-    --cream:   #F5F0E8;
-    --red:     #E8432D;
-    --sand:    #C8B99A;
+    --cream:   #FFFFFF;
+    --red:     #E8502A;
+    --sand:    #AAAAAA;
     --dark:    #1A1A1A;
     --mid:     #3A3A3A;
     --border:  #D8D0C2;
-    --font-display: 'Barlow Condensed', sans-serif;
-    --font-body:    'Inter', sans-serif;
+    --font-display: 'CreatoDisplay-Black', sans-serif;
+    --font-body:    'CreatoDisplay-Regular', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
@@ -53,7 +56,7 @@
   }
 
   .hero-title {
-    font-family: var(--font-display);
+    font-family: 'Korachi', sans-serif;
     font-size: clamp(72px, 12vw, 130px);
     font-weight: 900;
     line-height: 0.88;
@@ -89,6 +92,48 @@
     margin-bottom: 8px;
   }
 
+
+  /* ── FROM WITHIN LOGO SHAPE ── */
+  .fw-logo {
+    margin-bottom: 8px;
+  }
+
+  .fw-logo-inner {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .fw-logo-line1,
+  .fw-logo-line2 {
+    font-family: 'Korachi', 'CreatoDisplay-Black', sans-serif;
+    font-size: clamp(52px, 9vw, 100px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: #000;
+    background: #fff;
+    border: 3px solid #000;
+    padding: 4px 18px 6px;
+    display: block;
+    position: relative;
+    letter-spacing: -0.01em;
+  }
+
+  .fw-logo-line1 {
+    align-self: flex-start;
+    box-shadow: 5px 5px 0 #000;
+    margin-bottom: 2px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 8% 100%);
+    padding-left: 28px;
+  }
+
+  .fw-logo-line2 {
+    align-self: flex-end;
+    box-shadow: -5px 5px 0 #000;
+    clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+    padding-right: 28px;
+  }
+
   /* ── FORM WRAPPER ── */
   .form-wrapper {
     max-width: 900px;
@@ -121,9 +166,9 @@
   }
 
   .section-title {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 800;
+    font-family: 'CreatoDisplay-Black', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--cream);
@@ -151,9 +196,9 @@
   .field.full { grid-column: 1 / -1; }
 
   label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--sand);
   }
@@ -174,8 +219,8 @@
     border: 1px solid #666;
     color: var(--cream);
     font-family: var(--font-body);
-    font-size: 14px;
-    padding: 14px 16px;
+    font-size: 15px;
+    padding: 15px 16px;
     border-radius: 0;
     width: 100%;
     transition: border-color 0.2s, background 0.2s;
@@ -375,7 +420,7 @@
 
   /* hint */
   .hint {
-    font-size: 11px;
+    font-size: 12px;
     color: #666;
     line-height: 1.5;
     margin-top: -4px;
@@ -412,8 +457,8 @@
     cursor: pointer;
   }
 
-  .consent-text { font-size: 13px; color: #AAA; line-height: 1.6; }
-  .consent-text strong { color: var(--cream); font-weight: 500; display: block; margin-bottom: 3px; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .consent-text { font-size: 14px; color: #AAA; line-height: 1.6; }
+  .consent-text strong { color: var(--cream); font-weight: 500; display: block; margin-bottom: 3px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
 
   /* ── SUBMIT ── */
   .submit-area {
@@ -491,7 +536,7 @@
   }
 
   .confirm-sub {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--sand);
     line-height: 1.7;
   }
@@ -582,7 +627,7 @@
     display: flex;
     align-items: baseline;
     gap: 16px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--cream);
     line-height: 1.4;
@@ -663,10 +708,12 @@
 <header class="hero">
   <div>
     <p class="hero-eyebrow">LIFE by TheVelopers &nbsp;·&nbsp; Directorio de talento residente</p>
-    <h1 class="hero-title">
-      Desde<br>
-      <span>Adentro</span>
-    </h1>
+    <div class="fw-logo" aria-label="From Within">
+      <div class="fw-logo-inner">
+        <span class="fw-logo-line1">FROM</span>
+        <span class="fw-logo-line2">WITHIN</span>
+      </div>
+    </div>
   </div>
   <div class="hero-meta">
     <p class="hero-tagline">Postulación</p>
@@ -682,7 +729,7 @@
     <section class="form-section">
       <div class="section-header">
         <span class="section-num">01</span>
-        <span class="section-title">Información básica</span>
+        <span class="section-title">Información general</span>
       </div>
 
       <div class="fields two-col">
@@ -690,11 +737,6 @@
         <div class="field">
           <label>Nombre completo <span class="req">*</span></label>
           <input type="text" name="nombre" placeholder="Tu nombre completo" required>
-        </div>
-
-        <div class="field">
-          <label>Nombre de marca o negocio</label>
-          <input type="text" name="marca" placeholder="Si aplica">
         </div>
 
         <div class="field">
@@ -921,11 +963,6 @@
           </div>
         </div>
 
-        <div class="field">
-          <label>Dirección residencial actual <span class="req">*</span></label>
-          <input type="text" name="direccion" placeholder="Panamá, Ciudad de Panamá" required>
-        </div>
-
         <div class="field full">
           <label>Relación con la comunidad <span class="req">*</span></label>
           <div class="check-group inline">
@@ -986,55 +1023,23 @@
         </div>
 
         <div class="field full">
-          <label>Servicios que ofreces <span class="req">*</span></label>
-          <textarea name="servicios" placeholder="Describe los servicios que ofreces de forma concisa" required></textarea>
-        </div>
-
-        <div class="field full">
-          <label>Descripción de tu perfil <span class="req">*</span></label>
-          <textarea name="descripcion" placeholder="En 2–3 líneas, ¿quién eres y qué haces?" required></textarea>
+          <label>Cuéntanos sobre ti <span class="req">*</span></label>
+          <textarea name="descripcion" placeholder="Describe qué haces, qué servicios ofreces, tu enfoque profesional, logros relevantes, logos, etc." style="min-height:140px" required></textarea>
           <p class="hint">Este texto puede aparecer directamente en tu ficha del directorio.</p>
         </div>
 
         <div class="field full">
-          <label>Certificaciones o estudios relevantes</label>
-          <textarea name="certificaciones" placeholder="Títulos, certificaciones, programas relevantes"></textarea>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 03 · OFERTA DE VALOR -->
-    <section class="form-section">
-      <div class="section-header">
-        <span class="section-num">03</span>
-        <span class="section-title">Oferta de valor</span>
-      </div>
-
-      <div class="fields">
-
-        <div class="field">
           <label>¿Qué te diferencia? <span class="req">*</span></label>
           <textarea name="diferenciador" placeholder="¿Qué hace único tu trabajo o enfoque frente a otros en tu área?" required></textarea>
         </div>
 
-        <div class="field">
-          <label>Tipo de clientes con los que trabajas principalmente <span class="req">*</span></label>
-          <textarea name="clientes" placeholder="Ej. empresas familiares, startups, particulares, corporativos..." required></textarea>
-        </div>
-
-        <div class="field">
-          <label>Resultados o logros que deseas destacar</label>
-          <textarea name="logros" placeholder="Proyectos, casos de éxito, métricas relevantes"></textarea>
-        </div>
-
       </div>
     </section>
 
-    <!-- 04 · PRESENCIA DIGITAL -->
+    <!-- 03 · PRESENCIA DIGITAL -->
     <section class="form-section">
       <div class="section-header">
-        <span class="section-num">04</span>
+        <span class="section-num">03</span>
         <span class="section-title">Presencia digital</span>
       </div>
 
@@ -1065,32 +1070,16 @@
               <span class="social-label">LinkedIn</span>
               <input type="url" name="red_linkedin" placeholder="https://linkedin.com/in/tu-perfil">
             </div>
-            <div class="social-field">
-              <span class="social-label">Threads</span>
-              <input type="url" name="red_threads" placeholder="https://threads.net/@tu-perfil">
-            </div>
-            <div class="social-field">
-              <span class="social-label">TikTok</span>
-              <input type="url" name="red_tiktok" placeholder="https://tiktok.com/@tu-perfil">
-            </div>
-            <div class="social-field">
-              <span class="social-label">X / Twitter</span>
-              <input type="url" name="red_twitter" placeholder="https://x.com/tu-perfil">
-            </div>
-            <div class="social-field">
-              <span class="social-label">YouTube</span>
-              <input type="url" name="red_youtube" placeholder="https://youtube.com/@tu-canal">
-            </div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- 05 · MATERIAL VISUAL -->
+    <!-- 04 · MATERIAL VISUAL -->
     <section class="form-section">
       <div class="section-header">
-        <span class="section-num">05</span>
+        <span class="section-num">04</span>
         <span class="section-title">Material visual</span>
       </div>
 
@@ -1125,10 +1114,10 @@
       </div>
     </section>
 
-    <!-- 06 · COMUNIDAD LIFE -->
+    <!-- 05 · COMUNIDAD LIFE -->
     <section class="form-section">
       <div class="section-header">
-        <span class="section-num">06</span>
+        <span class="section-num">05</span>
         <span class="section-title">Comunidad LIFE</span>
       </div>
 
@@ -1193,7 +1182,7 @@
     <!-- CONSENTIMIENTO -->
     <section class="consent-section">
       <div class="section-header">
-        <span class="section-num" style="color:var(--red)">07</span>
+        <span class="section-num" style="color:var(--red)">06</span>
         <span class="section-title">Consentimiento</span>
       </div>
 
@@ -1202,7 +1191,7 @@
         <label class="consent-item">
           <input type="checkbox" name="consent_perfil" required>
           <div class="consent-text">
-            <strong>Publicación de perfil</strong>
+            <strong>Publicación de perfil <span class="req">*</span></strong>
             Autorizo la publicación de mi perfil, foto y descripción profesional en la plataforma LIFE by TheVelopers y sus canales digitales.
           </div>
         </label>
@@ -1210,7 +1199,7 @@
         <label class="consent-item">
           <input type="checkbox" name="consent_contacto" required>
           <div class="consent-text">
-            <strong>Contacto de clientes</strong>
+            <strong>Contacto de clientes <span class="req">*</span></strong>
             Acepto ser contactado directamente por miembros de la comunidad LIFE interesados en mis servicios.
           </div>
         </label>
@@ -1218,7 +1207,7 @@
         <label class="consent-item">
           <input type="checkbox" name="consent_curaduria" required>
           <div class="consent-text">
-            <strong>Proceso de curaduría</strong>
+            <strong>Proceso de curaduría <span class="req">*</span></strong>
             Entiendo que mi participación está sujeta a revisión del comité de curaduría de LIFE, y que puede ser suspendida si no se mantiene el aporte activo al ecosistema.
           </div>
         </label>
@@ -1244,7 +1233,12 @@
   <header class="hero">
     <div>
       <p class="hero-eyebrow">LIFE by TheVelopers &nbsp;·&nbsp; Directorio de talento residente</p>
-      <h1 class="hero-title">Desde<br><span>Adentro</span></h1>
+      <div class="fw-logo" aria-label="From Within">
+        <div class="fw-logo-inner">
+          <span class="fw-logo-line1">FROM</span>
+          <span class="fw-logo-line2">WITHIN</span>
+        </div>
+      </div>
     </div>
     <div class="hero-meta">
       <p class="hero-tagline">Confirmación</p>
@@ -1321,7 +1315,7 @@
       </div>
 
       <div class="faq-close">
-        <p>"Desde Adentro.<br>El talento que ya vive aquí."</p>
+        <p>"From Within.<br>El talento que ya vive aquí."</p>
       </div>
 
     </div>
@@ -1330,11 +1324,14 @@
 </div>
 
 <footer>
-  <p>LIFE by TheVelopers &nbsp;·&nbsp; Desde Adentro</p>
+  <p>LIFE by TheVelopers &nbsp;·&nbsp; From Within</p>
   <p>© 2025 TheVelopers. Todos los derechos reservados.</p>
 </footer>
 
 <script>
+  // ── CONFIG ──
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZAZcCJR7J72ABm9NMBna0sbX9UwlVGvT8x9BprDqnRgk-UwFbf5FzvZTzucrJFgNeQA/exec';
+
   // File name display
   document.querySelector('input[name="foto"]').addEventListener('change', function() {
     document.getElementById('foto-name').textContent = this.files[0]?.name || '';
@@ -1353,50 +1350,134 @@
     });
   });
 
+  // Convert file to base64
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve({
+        nombre: file.name,
+        tipo: file.type,
+        data: reader.result.split(',')[1]
+      });
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Collect checkboxes by name
+  function getChecked(name) {
+    return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value);
+  }
+
   // Form submit
-  document.getElementById('desde-adentro-form').addEventListener('submit', function(e) {
+  document.getElementById('desde-adentro-form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const required = this.querySelectorAll('[required]');
+    // Validation
+    const requiredFields = this.querySelectorAll('input[required], select[required], textarea[required]');
     let valid = true;
 
-    required.forEach(el => {
+    requiredFields.forEach(el => {
       el.style.borderColor = '';
-      if (el.type === 'radio' || el.type === 'checkbox') {
-        const group = document.querySelectorAll(`[name="${el.name}"]`);
-        const checked = Array.from(group).some(i => i.checked);
-        if (!checked) {
-          valid = false;
-          group.forEach(i => i.closest('label')?.style && (i.closest('label').style.outline = '1px solid #E8432D'));
-        }
-      } else {
-        if (!el.value.trim()) {
-          el.style.borderColor = '#E8432D';
-          if (valid) el.focus();
-          valid = false;
-        }
+      if (!el.value.trim()) {
+        el.style.borderColor = '#E8432D';
+        if (valid) el.focus();
+        valid = false;
       }
     });
 
-    if (!valid) return;
+    // Check required checkboxes (consent)
+    ['consent_perfil', 'consent_contacto', 'consent_curaduria'].forEach(name => {
+      const el = document.querySelector(`input[name="${name}"]`);
+      if (el && !el.checked) {
+        el.closest('label').style.outline = '1px solid #E8432D';
+        valid = false;
+      }
+    });
 
-    // Simulate send
-    document.querySelector('.btn-submit').textContent = 'Enviando...';
-    document.querySelector('.btn-submit').disabled = true;
+    if (!valid) {
+      document.querySelector('[style*="border-color: rgb(232"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
 
-    setTimeout(() => {
-      // Hide entire form page
-      document.getElementById('desde-adentro-form').style.display = 'none';
-      document.querySelector('header.hero').style.display = 'none';
-      document.querySelector('main.form-wrapper').style.display = 'none';
+    // UI: loading state
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
 
-      // Show success page
-      const successPage = document.getElementById('success-page');
-      successPage.style.display = 'block';
+    // Collect files
+    const archivos = [];
+    const fotoInput = document.querySelector('input[name="foto"]');
+    const portfolioInput = document.querySelector('input[name="portfolio_imgs"]');
 
-      // Scroll to very top
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 800);
+    if (fotoInput.files[0]) {
+      archivos.push(await fileToBase64(fotoInput.files[0]));
+    }
+    for (const file of portfolioInput.files) {
+      archivos.push(await fileToBase64(file));
+    }
+
+    // Build payload
+    const payload = {
+      nombre:           document.querySelector('[name="nombre"]').value.trim(),
+      marca:            document.querySelector('[name="marca"]').value.trim(),
+      email:            document.querySelector('[name="email"]').value.trim(),
+      telefono_codigo:  document.querySelector('[name="telefono_codigo"]').value,
+      telefono_numero:  document.querySelector('[name="telefono_numero"]').value.trim(),
+      proyecto:         document.querySelector('[name="proyecto"]').value,
+      direccion:        document.querySelector('[name="direccion"]').value.trim(),
+      relacion:         getChecked('relacion'),
+      area:             document.querySelector('[name="area"]').value,
+      experiencia:      document.querySelector('[name="experiencia"]').value,
+      servicios:        document.querySelector('[name="servicios"]').value.trim(),
+      descripcion:      document.querySelector('[name="descripcion"]').value.trim(),
+      certificaciones:  document.querySelector('[name="certificaciones"]').value.trim(),
+      diferenciador:    document.querySelector('[name="diferenciador"]').value.trim(),
+      clientes:         document.querySelector('[name="clientes"]').value.trim(),
+      logros:           document.querySelector('[name="logros"]').value.trim(),
+      web:              document.querySelector('[name="web"]').value.trim(),
+      portfolio:        document.querySelector('[name="portfolio"]').value.trim(),
+      red_facebook:     document.querySelector('[name="red_facebook"]').value.trim(),
+      red_instagram:    document.querySelector('[name="red_instagram"]').value.trim(),
+      red_linkedin:     document.querySelector('[name="red_linkedin"]').value.trim(),
+      red_threads:      document.querySelector('[name="red_threads"]').value.trim(),
+      red_tiktok:       document.querySelector('[name="red_tiktok"]').value.trim(),
+      red_twitter:      document.querySelector('[name="red_twitter"]').value.trim(),
+      red_youtube:      document.querySelector('[name="red_youtube"]').value.trim(),
+      trabajo_previo:   getChecked('trabajo_previo'),
+      trabajo_detalle:  document.querySelector('[name="trabajo_detalle"]')?.value.trim() || '',
+      activaciones:     getChecked('activaciones'),
+      consent_perfil:   document.querySelector('[name="consent_perfil"]').checked,
+      consent_contacto: document.querySelector('[name="consent_contacto"]').checked,
+      consent_curaduria:document.querySelector('[name="consent_curaduria"]').checked,
+      archivos,
+    };
+
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        // Show success page
+        document.querySelector('header.hero').style.display = 'none';
+        document.querySelector('main.form-wrapper').style.display = 'none';
+        document.getElementById('success-page').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else {
+        btn.textContent = 'Error al enviar. Intenta de nuevo.';
+        btn.disabled = false;
+        btn.style.background = '#333';
+        console.error('Script error:', result.error);
+      }
+    } catch (err) {
+      btn.textContent = 'Error de conexión. Intenta de nuevo.';
+      btn.disabled = false;
+      btn.style.background = '#333';
+      console.error('Fetch error:', err);
+    }
   });
 </script>
 </body>
