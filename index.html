@@ -1463,15 +1463,19 @@
     });
 
     try {
+      // Get container — in Webflow embed, document.body may be restricted
+      const container = document.querySelector('.fw-wrap') || document.querySelector('.form-wrapper') || document.body;
+
       const iframe = document.createElement('iframe');
-      iframe.name = 'hidden-submit';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
+      iframe.name = 'hidden-submit-fw';
+      iframe.style.cssText = 'display:none;width:0;height:0;border:0;position:absolute;';
+      container.appendChild(iframe);
 
       const form = document.createElement('form');
       form.method = 'GET';
       form.action = APPS_SCRIPT_URL;
-      form.target = 'hidden-submit';
+      form.target = 'hidden-submit-fw';
+      form.style.display = 'none';
 
       params.forEach((value, key) => {
         const input = document.createElement('input');
@@ -1481,18 +1485,23 @@
         form.appendChild(input);
       });
 
-      document.body.appendChild(form);
+      container.appendChild(form);
       form.submit();
 
-      await new Promise(r => setTimeout(r, 3000));
+      await new Promise(r => setTimeout(r, 3500));
 
-      // Hide form sections — use IDs for Webflow compatibility
-      const heroEl = document.querySelector('header.hero') || document.querySelector('.hero');
-      const mainEl = document.querySelector('main.form-wrapper') || document.querySelector('.form-wrapper');
+      // Hide form sections
+      const heroEl = document.querySelector('.hero');
+      const mainEl = document.querySelector('.form-wrapper');
       if (heroEl) heroEl.style.display = 'none';
       if (mainEl) mainEl.style.display = 'none';
-      document.getElementById('desde-adentro-form').style.display = 'none';
-      document.getElementById('success-page').style.display = 'block';
+      const formEl = document.getElementById('desde-adentro-form');
+      if (formEl) formEl.style.display = 'none';
+      const successEl = document.getElementById('success-page');
+      if (successEl) {
+        successEl.style.display = 'block';
+        successEl.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }
       window.scrollTo({ top: 0, behavior: 'instant' });
     } catch (err) {
       btn.textContent = 'Error de conexión. Intenta de nuevo.';
