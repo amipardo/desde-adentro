@@ -70,8 +70,36 @@
     display: block;
   }
 
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-desc {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: var(--cream);
+  }
+
   .hero-meta {
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
   }
 
   .hero-meta p {
@@ -228,7 +256,7 @@
   input[type="number"],
   select,
   textarea {
-    background:#edeae2;
+    background:#ffffff;
     border: 1px solid #cccccc;
     color: var(--cream);
     font-family: var(--font-body);
@@ -269,14 +297,14 @@
     pointer-events: none;
   }
   .select-wrap select { padding-right: 40px; cursor: pointer; }
-  .select-wrap select option { background:#edeae2; }
+  .select-wrap select option { background:#ffffff; }
 
   /* file upload */
   .file-label {
     display: flex;
     align-items: center;
     gap: 12px;
-    background:#edeae2;
+    background:#ffffff;
     border: 1px dashed #666;
     padding: 20px 16px;
     cursor: pointer;
@@ -303,7 +331,7 @@
     height: 18px;
     border: 1px solid #cccccc;
     border-radius: 0;
-    background:#edeae2;
+    background:#ffffff;
     cursor: pointer;
     flex-shrink: 0;
     appearance: none;
@@ -358,7 +386,7 @@
     width: 16px;
     height: 16px;
     border: 1px solid #333;
-    background:#edeae2;
+    background:#ffffff;
     cursor: pointer;
     flex-shrink: 0;
     accent-color: var(--red);
@@ -386,7 +414,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--sand);
-    background:#edeae2;
+    background:#ffffff;
     border: 1px solid #cccccc;
     border-right: none;
     padding: 0 14px;
@@ -429,7 +457,7 @@
 
   .phone-wrap input[type="tel"]:focus {
     border-left: 1px solid var(--red);
-    background: #edeae2;
+    background: #ffffff;
   }
 
   /* hint */
@@ -706,7 +734,31 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .hero { grid-template-columns: 1fr; padding: 48px 24px 40px; }
-    .hero-meta { text-align: left; }
+  
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-desc {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: var(--cream);
+  }
+
+  .hero-meta { text-align: left; }
     .hero-meta p { margin-left: 0; }
     .form-wrapper { padding: 0 24px 80px; }
     footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
