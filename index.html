@@ -1486,8 +1486,12 @@
 
       await new Promise(r => setTimeout(r, 3000));
 
-      document.querySelector('header.hero').style.display = 'none';
-      document.querySelector('main.form-wrapper').style.display = 'none';
+      // Hide form sections — use IDs for Webflow compatibility
+      const heroEl = document.querySelector('header.hero') || document.querySelector('.hero');
+      const mainEl = document.querySelector('main.form-wrapper') || document.querySelector('.form-wrapper');
+      if (heroEl) heroEl.style.display = 'none';
+      if (mainEl) mainEl.style.display = 'none';
+      document.getElementById('desde-adentro-form').style.display = 'none';
       document.getElementById('success-page').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'instant' });
     } catch (err) {
